@@ -381,6 +381,3 @@ if __name__ == "__main__":
             # Paso 4: Reproducir el tono de prueba (bit-perfecto)
             print("[LISTO] El sistema está preparado para iniciar la prueba acústica.")
             controlador.reproducir_tono(ARCHIVO_TONO)
-
-
-            #cambio
