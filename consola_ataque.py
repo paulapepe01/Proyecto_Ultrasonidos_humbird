@@ -21,12 +21,12 @@ SISTEMAS_OP = ["MacOS", "Windows", "Linux"]
 SISTEMA_ACTUAL = SISTEMAS_OP[0]  # Cambiar según sistema operativo
 
 NOMBRE_ALTAVOZ = "Humbird Speaker" 
-VOLUMEN_SEGURO = 50
+VOLUMEN_SEGURO = 80
 SAMPLE_RATE_SALIDA = 96000
 
 # Rutas relativas al script
 DIRECTORIO_BASE = os.path.dirname(__file__)
-CARPETA_ENTRADA = os.path.join(DIRECTORIO_BASE, "Originales")
+CARPETA_ENTRADA = os.path.join(DIRECTORIO_BASE, "PruebasP")
 CARPETA_SALIDA = os.path.join(DIRECTORIO_BASE, "ATAQUES")
 
 # Crear carpetas si no existen
@@ -138,7 +138,7 @@ class ControladorLaboratorio:
         except Exception:
             return False
 
-    def ajustar_volumen(self, nivel=50):
+    def ajustar_volumen(self, nivel=80):
         try:
             if self.sistema_operativo == "MacOS":
                 subprocess.run(["osascript", "-e", f"set volume output volume {nivel}"], timeout=10)
@@ -195,7 +195,7 @@ class AplicacionLaboratorio:
         
         archivos_base = self.listar_archivos_originales()
         if not archivos_base:
-            archivos_base = ["(Sin archivos en /Originales)"]
+            archivos_base = ["(Sin archivos en /PruebasP)"]
             
         self.var_archivo = tk.StringVar(self.root)
         self.var_archivo.set(archivos_base[0])
@@ -239,13 +239,13 @@ class AplicacionLaboratorio:
             return
 
         self.controlador.ajustar_volumen(VOLUMEN_SEGURO)
-        self.lbl_estado.config(text="¡Hardware Listo! (Vol. 50%)", fg="green")
+        self.lbl_estado.config(text="¡Hardware Listo! (Vol. 80%)", fg="green")
         self.btn_play.config(state=tk.NORMAL)
 
     def lanzar_ataque(self):
         archivo = self.var_archivo.get()
         if not archivo or "Sin archivos" in archivo:
-            messagebox.showerror("Error", "Mete un audio válido en la carpeta 'Originales'.")
+            messagebox.showerror("Error", "Mete un audio válido en la carpeta 'PruebasP'.")
             return
 
         freq = int(self.var_freq.get())
@@ -284,7 +284,7 @@ class AplicacionLaboratorio:
         self.btn_play.config(state=tk.NORMAL)
         self.btn_stop.config(state=tk.DISABLED)
         if not self.reproduciendo:
-            self.lbl_estado.config(text="¡Hardware Listo! (Vol. 50%)", fg="green")
+            self.lbl_estado.config(text="¡Hardware Listo! (Vol. 80%)", fg="green")
 
     def al_cerrar(self):
         sd.stop()
